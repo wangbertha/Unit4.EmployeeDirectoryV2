@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 module.exports = router;
 
-const employees = require("../employees");
+const employees = require("../data/employees");
 
 router.get("/", (req, res) => {
   res.json(employees);
