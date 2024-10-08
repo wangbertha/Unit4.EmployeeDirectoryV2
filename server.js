@@ -27,6 +27,12 @@ app.get("/employees/:id", (req, res) => {
   }
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status ?? 500);
+  res.json(err.message ?? 'Sorry, something broke :(');
+})
+
 app.listen(PORT, () => {
   `Listening on port ${PORT}...`;
 });
