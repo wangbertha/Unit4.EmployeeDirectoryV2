@@ -19,14 +19,18 @@ router.get("/:id", (req, res) => {
   if (employee) {
     res.json(employee);
   } else {
-    res.status(404).send(`There is no employee with id ${id}.`);
+    next({ status: 404, message: `There is no employee with id ${id}.`});
   }
 });
 
 router.post("/", (req, res) => {
     const { name } = req.body;
-    const id = employees.length+1;
-    const employee = { id, name }
-    employees.push(employee);
-    res.status(201).json(employee);
+    if (name) {
+        const id = employees.length+1;
+        const employee = { id, name }
+        employees.push(employee);
+        res.status(201).json(employee);
+    } else {
+        next({ status: 400, message: 'New employee entry must have a name provided.'})
+    }
 })
