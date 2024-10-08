@@ -27,6 +27,10 @@ app.get("/employees/:id", (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  next({ status: 404, message: 'Endpoint not found.'});
+})
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.status ?? 500);
